@@ -3,6 +3,8 @@
 #include <SFML/OpenGL.hpp>
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "Matrix.h"
+#include "Vector.h"
 
 using namespace std;
 using namespace sf;
