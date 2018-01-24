@@ -57,6 +57,34 @@ void Game::initialize()
 		glVertex3f(-1.0f, -1.0f, -5.0f);
 		glVertex3f(1.0f, -1.0f, -5.0f);
 
+		//Side Face
+		glColor3f(0.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, -15.0f);
+		glVertex3f(1.0f, 1.0f, -5.0f);
+		glVertex3f(1.0f, -1.0f, -5.0f);
+		glVertex3f(1.0f, -1.0f, -15.0f);
+
+		//Side Face
+		glColor3f(0.0f, 0.5f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, -15.0f);
+		glVertex3f(-1.0f, 1.0f, -5.0f);
+		glVertex3f(-1.0f, -1.0f, -5.0f);
+		glVertex3f(-1.0f, -1.0f, -15.0f);
+
+		//Top Face
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(-1.0f, 1.0f, -5.0f);
+		glVertex3f(1.0f, 1.0f, -5.0f);
+		glVertex3f(-1.0f, -1.0f, -15.0f);
+		glVertex3f(-1.0f, 1.0f, -15.0f);
+
+		//Bottom Face
+		glColor3f(1.0f, 0.5f, 0.5f);
+		glVertex3f(-1.0f, -1.0f, -5.0f);
+		glVertex3f(1.0f, -1.0f, -5.0f);
+		glVertex3f(1.0f, -1.0f, -15.0f);
+		glVertex3f(-1.0f, -1.0f, -15.0f);
+
 		//Back Face
 		glColor3f(0.0f, 1.0f, 0.0f);
 		glVertex3f(1.0f, 1.0f, -15.0f);
@@ -107,7 +135,6 @@ void Game::draw()
 
 	cout << "Drawing Cube " << endl;
 	glLoadIdentity();
-	glRotatef(rotationAngle, 0, 1, 0); // Rotates the camera on Y Axis
 
 	glCallList(1);
 
