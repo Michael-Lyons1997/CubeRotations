@@ -319,12 +319,12 @@ void Game::update()
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			topFace[i] = newmat.Translate(0.5, 0.5) * topFace[i];
-			bottomFace[i] = newmat.Translate(0.5, 0.5) * bottomFace[i];
-			lSide[i] = newmat.Translate(0.5, 0.5) * lSide[i];
-			rSide[i] = newmat.Translate(0.5, 0.5) * rSide[i];
-			frontFace[i] = newmat.Translate(0.5, 0.5) * frontFace[i];
-			backFace[i] = newmat.Translate(0.5, 0.5) * backFace[i];
+			topFace[i] = newmat.Translate(1, 1) * topFace[i];
+			bottomFace[i] = newmat.Translate(1, 1) * bottomFace[i];
+			lSide[i] = newmat.Translate(1, 1) * lSide[i];
+			rSide[i] = newmat.Translate(1, 1) * rSide[i];
+			frontFace[i] = newmat.Translate(1, 1) * frontFace[i];
+			backFace[i] = newmat.Translate(1, 1) * backFace[i];
 		}
 	}
 	if (rotate)
