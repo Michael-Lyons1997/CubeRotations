@@ -188,6 +188,18 @@ void Game::initialize()
 		glVertex3f(backFace[2].getX(), backFace[2].getY(), backFace[2].getZ());
 		glVertex3f(backFace[3].getX(), backFace[3].getY(), backFace[3].getZ());
 
+		newmat.setA11(1);
+		newmat.setA21(1);
+		newmat.setA31(1);
+
+		newmat.setA21(1);
+		newmat.setA22(1);
+		newmat.setA23(1);
+
+		newmat.setA31(1);
+		newmat.setA32(1);
+		newmat.setA33(1);
+
 		//Complete the faces of the Cube
 	}
 	glEnd();
@@ -201,27 +213,73 @@ void Game::update()
 	if (elapsed.asSeconds() >= 1.0f)
 	{
 		clock.restart();
+	}
 
-		if (!updatable)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+	{
+		translate = true;
+	}
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+	{
+		translate = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		scale = true;
+	}
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		scale = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		rotate = true;
+	}
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		rotate = false;
+	}
+
+	if (translate)
+	{
+		for (int i = 0; i < 4; i++)
 		{
-			updatable = true;
+			topFace[i] = newmat.Translate(5, 5) * topFace[i];
+			bottomFace[i] = newmat.Translate(5, 5) * bottomFace[i];
+			lSide[i] = newmat.Translate(5, 5) * lSide[i];
+			rSide[i] = newmat.Translate(5, 5) * rSide[i];
+			frontFace[i] = newmat.Translate(5, 5) * frontFace[i];
+			backFace[i] = newmat.Translate(5, 5) * backFace[i];
+		}
+	}
+	if (rotate)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			topFace[i] = newmat.Rotation(30) * topFace[i];
+			bottomFace[i] = newmat.Rotation(30) * bottomFace[i];
+			lSide[i] = newmat.Rotation(30) * lSide[i];
+			rSide[i] = newmat.Rotation(30) * rSide[i];
+			frontFace[i] = newmat.Rotation(30) * frontFace[i];
+			backFace[i] = newmat.Rotation(30) * backFace[i];
+		}
+	}
+	if (scale)
+	{		
+		if(scaleint < 4)
+		{
+			topFace[scaleint] = newmat.Scale3D(5) * topFace[scaleint];
+			bottomFace[scaleint] = newmat.Scale3D(5) * bottomFace[scaleint];
+			lSide[scaleint] = newmat.Scale3D(5) * lSide[scaleint];
+			rSide[scaleint] = newmat.Scale3D(5) * rSide[scaleint];
+			frontFace[scaleint] = newmat.Scale3D(5) * frontFace[scaleint];
+			backFace[scaleint] = newmat.Scale3D(5) * backFace[scaleint];
+			scaleint++;
 		}
 		else
-			updatable = false;
-	}
-
-	if (updatable)
-	{
-		rotationAngle += 0.005f;
-
-		if (rotationAngle > 360.0f)
 		{
-			rotationAngle -= 360.0f;
+			scaleint = 0;
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-
 	}
 	cout << "Update up" << endl;
 }

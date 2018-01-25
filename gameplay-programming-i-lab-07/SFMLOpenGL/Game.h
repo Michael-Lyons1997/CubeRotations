@@ -22,7 +22,7 @@ private:
 	void update();
 	void draw();
 	void unload();
-
+	Matrix newmat;
 	Vector frontFace[4];
 	Vector backFace[4];
 	Vector topFace[4];
@@ -32,6 +32,9 @@ private:
 	GLuint index;
 	Clock clock;
 	Time elapsed;
-
+	bool translate = false;
+	bool rotate = false;
+	bool scale = false;
+	int scaleint = 0;
 	float rotationAngle = 0.0f;
 };
