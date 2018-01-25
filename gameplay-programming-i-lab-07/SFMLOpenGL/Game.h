@@ -16,6 +16,7 @@ public:
 	~Game();
 	void run();
 private:
+	void updatePos();
 	Window window;
 	bool isRunning = false;
 	void initialize();

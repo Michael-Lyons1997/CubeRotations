@@ -129,6 +129,81 @@ void Game::run()
 
 }
 
+void Game::updatePos()
+{
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0, window.getSize().x / window.getSize().y, 1.0, 500.0);
+	glMatrixMode(GL_MODELVIEW);
+
+	// glNewList(index, GL_COMPILE);
+	// Creates a new Display List
+	// Initalizes and Compiled to GPU
+	// https://www.opengl.org/sdk/docs/man2/xhtml/glNewList.xml
+	glNewList(index, GL_COMPILE);
+	glBegin(GL_QUADS);
+	{
+		//Front Face
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glVertex3f(frontFace[0].getX(), frontFace[0].getY(), frontFace[0].getZ());
+		glVertex3f(frontFace[1].getX(), frontFace[1].getY(), frontFace[1].getZ());
+		glVertex3f(frontFace[2].getX(), frontFace[2].getY(), frontFace[2].getZ());
+		glVertex3f(frontFace[3].getX(), frontFace[3].getY(), frontFace[3].getZ());
+
+		//left Side Face
+		glColor3f(0.0f, 1.0f, 1.0f);
+		glVertex3f(lSide[0].getX(), lSide[0].getY(), lSide[0].getZ());
+		glVertex3f(lSide[1].getX(), lSide[1].getY(), lSide[1].getZ());
+		glVertex3f(lSide[2].getX(), lSide[2].getY(), lSide[2].getZ());
+		glVertex3f(lSide[3].getX(), lSide[3].getY(), lSide[3].getZ());
+
+		//right Side Face
+		glColor3f(0.0f, 0.5f, 1.0f);
+		glVertex3f(rSide[0].getX(), rSide[0].getY(), rSide[0].getZ());
+		glVertex3f(rSide[1].getX(), rSide[1].getY(), rSide[1].getZ());
+		glVertex3f(rSide[2].getX(), rSide[2].getY(), rSide[2].getZ());
+		glVertex3f(rSide[3].getX(), rSide[3].getY(), rSide[3].getZ());
+
+		//Top Face
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(topFace[0].getX(), topFace[0].getY(), topFace[0].getZ());
+		glVertex3f(topFace[1].getX(), topFace[1].getY(), topFace[1].getZ());
+		glVertex3f(topFace[2].getX(), topFace[2].getY(), topFace[2].getZ());
+		glVertex3f(topFace[3].getX(), topFace[3].getY(), topFace[3].getZ());
+
+		//Bottom Face
+		glColor3f(1.0f, 0.5f, 0.5f);
+		glVertex3f(bottomFace[0].getX(), bottomFace[0].getY(), bottomFace[0].getZ());
+		glVertex3f(bottomFace[1].getX(), bottomFace[1].getY(), bottomFace[1].getZ());
+		glVertex3f(bottomFace[2].getX(), bottomFace[2].getY(), bottomFace[2].getZ());
+		glVertex3f(bottomFace[3].getX(), bottomFace[3].getY(), bottomFace[3].getZ());
+
+		//Back Face
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(backFace[0].getX(), backFace[0].getY(), backFace[0].getZ());
+		glVertex3f(backFace[1].getX(), backFace[1].getY(), backFace[1].getZ());
+		glVertex3f(backFace[2].getX(), backFace[2].getY(), backFace[2].getZ());
+		glVertex3f(backFace[3].getX(), backFace[3].getY(), backFace[3].getZ());
+
+		newmat.setA11(1);
+		newmat.setA21(1);
+		newmat.setA31(1);
+
+		newmat.setA21(1);
+		newmat.setA22(1);
+		newmat.setA23(1);
+
+		newmat.setA31(1);
+		newmat.setA32(1);
+		newmat.setA33(1);
+
+		//Complete the faces of the Cube
+	}
+	glEnd();
+	glEndList();
+}
+
 void Game::initialize()
 {
 	isRunning = true;
@@ -244,43 +319,39 @@ void Game::update()
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			topFace[i] = newmat.Translate(5, 5) * topFace[i];
-			bottomFace[i] = newmat.Translate(5, 5) * bottomFace[i];
-			lSide[i] = newmat.Translate(5, 5) * lSide[i];
-			rSide[i] = newmat.Translate(5, 5) * rSide[i];
-			frontFace[i] = newmat.Translate(5, 5) * frontFace[i];
-			backFace[i] = newmat.Translate(5, 5) * backFace[i];
+			topFace[i] = newmat.Translate(0.5, 0.5) * topFace[i];
+			bottomFace[i] = newmat.Translate(0.5, 0.5) * bottomFace[i];
+			lSide[i] = newmat.Translate(0.5, 0.5) * lSide[i];
+			rSide[i] = newmat.Translate(0.5, 0.5) * rSide[i];
+			frontFace[i] = newmat.Translate(0.5, 0.5) * frontFace[i];
+			backFace[i] = newmat.Translate(0.5, 0.5) * backFace[i];
 		}
 	}
 	if (rotate)
 	{
 		for (int i = 0; i < 4; i++)
 		{
-			topFace[i] = newmat.Rotation(30) * topFace[i];
-			bottomFace[i] = newmat.Rotation(30) * bottomFace[i];
-			lSide[i] = newmat.Rotation(30) * lSide[i];
-			rSide[i] = newmat.Rotation(30) * rSide[i];
-			frontFace[i] = newmat.Rotation(30) * frontFace[i];
-			backFace[i] = newmat.Rotation(30) * backFace[i];
+			topFace[i] = newmat.Rotation(1) * topFace[i];
+			bottomFace[i] = newmat.Rotation(1) * bottomFace[i];
+			lSide[i] = newmat.Rotation(1) * lSide[i];
+			rSide[i] = newmat.Rotation(1) * rSide[i];
+			frontFace[i] = newmat.Rotation(1) * frontFace[i];
+			backFace[i] = newmat.Rotation(1) * backFace[i];
 		}
 	}
 	if (scale)
 	{		
-		if(scaleint < 4)
+		for (int i = 0; i < 4; i++)
 		{
-			topFace[scaleint] = newmat.Scale3D(5) * topFace[scaleint];
-			bottomFace[scaleint] = newmat.Scale3D(5) * bottomFace[scaleint];
-			lSide[scaleint] = newmat.Scale3D(5) * lSide[scaleint];
-			rSide[scaleint] = newmat.Scale3D(5) * rSide[scaleint];
-			frontFace[scaleint] = newmat.Scale3D(5) * frontFace[scaleint];
-			backFace[scaleint] = newmat.Scale3D(5) * backFace[scaleint];
-			scaleint++;
-		}
-		else
-		{
-			scaleint = 0;
+			topFace[i] = newmat.Scale3D(0.01) * topFace[i];
+			bottomFace[i] = newmat.Scale3D(0.01) * bottomFace[i];
+			lSide[i] = newmat.Scale3D(0.01) * lSide[i];
+			rSide[i] = newmat.Scale3D(0.01) * rSide[i];
+			frontFace[i] = newmat.Scale3D(0.01) * frontFace[i];
+			backFace[i] = newmat.Scale3D(0.01) * backFace[i];
 		}
 	}
+	updatePos();
 	cout << "Update up" << endl;
 }
 
