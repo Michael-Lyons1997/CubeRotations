@@ -23,6 +23,12 @@ private:
 	void draw();
 	void unload();
 
+	Vector frontFace[4];
+	Vector backFace[4];
+	Vector topFace[4];
+	Vector bottomFace[4];
+	Vector lSide[4];
+	Vector rSide[4];
 	GLuint index;
 	Clock clock;
 	Time elapsed;
